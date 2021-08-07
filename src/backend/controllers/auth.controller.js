@@ -10,8 +10,10 @@ const { JWT_SECRET } = process.env
 
 const register = async (req, res) => {
   const { body } = req
+  console.log('body',body);
   const { data: user, error: errorReg } = await usersModel.register(body)
-
+  console.log('user', user);
+  console.log('errorReg',errorReg);
   const code = user ? HTTP_CODE.CREATED : HTTP_CODE.CONFLICT
 
   if (errorReg) {
@@ -30,7 +32,6 @@ const register = async (req, res) => {
 }
 
 const login = async (req, res) => {
-  console.log('login');
   const { body } = req
   const { data, error } = await usersModel.login(body)
   const code = data ? HTTP_CODE.OK : HTTP_CODE.NOT_FOUND

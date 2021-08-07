@@ -31,7 +31,7 @@ app.use('/api/contacts', contactsRouter)
 app.use('/auth', authRouter)
 app.use('/users', usersRouter)
 app.use('/images', imagesRouter)
-app.use('/todo', todoesRouter)
+app.use('/api/todoes', todoesRouter)
 
 app.use((req, res) => {
   return res.status(HTTP_CODE.NOT_FOUND).json({ message: ` URL: "${req.url} not found"` })
@@ -64,28 +64,5 @@ app.use((err, _req, res, _next) => {
       }
     })
 })
-
-
-
-// // using Twilio SendGrid's v3 Node.js Library
-// // https://github.com/sendgrid/sendgrid-nodejs
-
-// const sgMail = require('@sendgrid/mail')
-// sgMail.setApiKey(process.env.SEND_GRID_KEY)
-// const msg = {
-//   to: 'yurchenko.stanislav@ukr.net', // Change to your recipient
-//   from: 'si150681@gmail.com', // Change to your verified sender
-//   subject: 'Sending with SendGrid is Fun',
-//   text: 'and easy to do anywhere, even with Node.js',
-//   html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-// }
-// sgMail
-//   .send(msg)
-//   .then(() => {
-//     console.log('Email sent')
-//   })
-//   .catch((error) => {
-//     console.error(error)
-//   })
 
 module.exports = app

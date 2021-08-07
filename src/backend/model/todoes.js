@@ -3,7 +3,7 @@ const Todo = require('./schemas/Todo')
 const listTodoes = async (userId, query) => {
   const { sortBy, sortByDesc, select, limit = 5, page = 1 } = query
   try {
-    const { docs: contacts, totalDocs: total, limit: newLimit, page: newPage } =
+    const { docs: todoes, totalDocs: total, limit: newLimit, page: newPage } =
       await Todo.paginate(
           {
             owner: userId,
@@ -22,7 +22,7 @@ const listTodoes = async (userId, query) => {
             }
           })
 
-    return { data: { contacts, total, limit: newLimit, page: newPage } }
+    return { data: { todoes, total, limit: newLimit, page: newPage } }
   } catch (error) {
     return { error }
   }

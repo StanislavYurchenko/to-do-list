@@ -28,6 +28,30 @@ const newContact = (req, _res, next) => {
   next()
 }
 
+const addTodo = (req, _res, next) => {
+  const { body } = req
+  const schema = Joi.object({
+    title: Joi.string().required(),
+    description: Joi.string().default(''),
+    ready: Joi.boolean().default(false),
+    owner: Joi.string().empty('').default(''),
+  })
+  const validationResult = schema.validate(body)
+
+  try {
+    if (validationResult.error) {
+      const error = new Error()
+      error.message = validationResult.error.message
+      error.code = HTTP_CODE.BAD_CONTENT
+      throw error
+    }
+  } catch (error) {
+    next(error)
+  }
+
+  next()
+}
+
 const getContactsQuery = (req, _res, next) => {
   const { query } = req
   const schema = Joi.object({
@@ -37,6 +61,28 @@ const getContactsQuery = (req, _res, next) => {
     sortByDesc: Joi.string().valid(...Object.values(DOCUMENT_FILES)),
     select: Joi.string().valid(...Object.values(DOCUMENT_FILES)),
     sub: Joi.string().valid(...Object.values(SUBSCRIPTIONS_TYPE)),
+  })
+  const validationResult = schema.validate(query)
+
+  try {
+    if (validationResult.error) {
+      const error = new Error()
+      error.message = validationResult.error.message
+      error.code = HTTP_CODE.BAD_CONTENT
+      throw error
+    }
+  } catch (error) {
+    next(error)
+  }
+
+  next()
+}
+
+const getTodoesQuery = (req, _res, next) => {
+  const { query } = req
+  const schema = Joi.object({
+    limit: Joi.number().max(10).default(5),
+    page: Joi.number().min(0).default(1),
   })
   const validationResult = schema.validate(query)
 
@@ -80,6 +126,29 @@ const updateContact = (req, _res, next) => {
   next()
 }
 
+const updateTodo = (req, _res, next) => {
+  const { body } = req
+  const schema = Joi.object({
+    title: Joi.string(),
+    description: Joi.string(),
+    ready: Joi.boolean(),
+  }).min(1)
+  const validationResult = schema.validate(body)
+
+  try {
+    if (validationResult.error) {
+      const error = new Error()
+      error.message = validationResult.error.message
+      error.code = HTTP_CODE.BAD_CONTENT
+      throw error
+    }
+  } catch (error) {
+    next(error)
+  }
+
+  next()
+}
+
 const id = (req, _res, next) => {
   const { id } = req.params
   const isIdValid = mongoose.Types.ObjectId.isValid(id)
@@ -101,7 +170,6 @@ const auth = (req, _res, next) => {
   const schema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().required(),
-    subscription: Joi.string().valid(...Object.values(SUBSCRIPTIONS_TYPE)).default(SUBSCRIPTIONS_TYPE.free),
   })
   const validationResult = schema.validate(body)
 
@@ -125,6 +193,7 @@ const newUser = (req, _res, next) => {
     email: Joi.string().email().required(),
     subscription: Joi.string().valid(...Object.values(SUBSCRIPTIONS_TYPE)).default(SUBSCRIPTIONS_TYPE.free),
     password: Joi.string().required(),
+    name: Joi.string().required(),
   })
   const validationResult = schema.validate(body)
 
@@ -189,4 +258,7 @@ module.exports = {
   getContactsQuery,
   updateUser,
   uploadImage,
+  getTodoesQuery,
+  addTodo,
+  updateTodo,
 }

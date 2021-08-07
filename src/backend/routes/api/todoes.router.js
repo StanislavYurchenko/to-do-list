@@ -6,10 +6,10 @@ const guard = require('../../utils/guard')
 
 const router = express.Router()
 
-router.get('/', controller.getTodoes)
-router.get('/:id', controller.getTodoById)
-router.post('/', controller.postTodo)
-router.patch('/:id', controller.patchTodoById)
-router.delete('/:id', controller.deleteTodoById)
+router.get('/', guard, validate.getTodoesQuery, controller.getTodoes)
+router.get('/:id', guard, validate.id, controller.getTodoById)
+router.post('/', guard, validate.addTodo, controller.postTodo)
+router.patch('/:id', guard, validate.id, validate.updateTodo, controller.patchTodoById)
+router.delete('/:id', guard, validate.id, controller.deleteTodoById)
 
 module.exports = router
