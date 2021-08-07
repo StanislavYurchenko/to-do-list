@@ -2,6 +2,7 @@ const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
+const { join } = require('path')
 
 const contactsRouter = require('./routes/api/contacts.router')
 const authRouter = require('./routes/api/auth.router')
@@ -32,6 +33,9 @@ app.use('/auth', authRouter)
 app.use('/users', usersRouter)
 app.use('/images', imagesRouter)
 app.use('/api/todoes', todoesRouter)
+app.use('/api/todoes', todoesRouter)
+
+app.use('/', express.static(join(process.cwd(), 'dist/to-do-list')))
 
 app.use((req, res) => {
   return res.status(HTTP_CODE.NOT_FOUND).json({ message: ` URL: "${req.url} not found"` })
