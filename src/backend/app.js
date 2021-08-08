@@ -30,11 +30,10 @@ app.use('/api', apiLimiter)
 app.use('/auth/register', authLimiter)
 app.use('/images', apiLimiter)
 
-app.use('/api/contacts', contactsRouter)
 app.use('/auth', authRouter)
-app.use('/users', usersRouter)
-app.use('/images', imagesRouter)
-app.use('/api/todoes', todoesRouter)
+app.use('/api/contacts', contactsRouter)
+app.use('/api/users', usersRouter)
+app.use('/api/images', imagesRouter)
 app.use('/api/todoes', todoesRouter)
 
 app.use((req, res) => {
