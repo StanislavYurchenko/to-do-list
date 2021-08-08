@@ -15,4 +15,4 @@ const serverInit = async() => {
   })
 }
 
-// dbConnect(serverInit)
+dbConnect(serverInit)
