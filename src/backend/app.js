@@ -19,22 +19,23 @@ app.use(express.static(DIRS.public))
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
 
+// security
 app.use(helmet())
 app.use(logger(formatsLogger))
 app.use(cors())
 app.use(express.json({ limit: 10000 }))
 
-app.use(express.static(join(process.cwd(), 'dist', 'to-do-list')))
-
 app.use('/api', apiLimiter)
 app.use('/auth/register', authLimiter)
-app.use('/images', apiLimiter)
 
+// routes
 app.use('/auth', authRouter)
 app.use('/api/contacts', contactsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/images', imagesRouter)
 app.use('/api/todoes', todoesRouter)
+
+app.use('/', express.static(join(process.cwd(), 'dist', 'to-do-list')))
 
 app.use((req, res) => {
   return res.status(HTTP_CODE.NOT_FOUND).json({ message: ` URL: "${req.url} not found"` })
