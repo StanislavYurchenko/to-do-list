@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npm run build && npm run start:back",
+    "start": "npm run start:back",
     "build": "ng build",
     "start:app": "ng serve",
     "watch:app": "ng build --watch --configuration development",
