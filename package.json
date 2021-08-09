@@ -2,9 +2,9 @@
   "name": "to-do-list",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "npm run start:back",
     "build": "npm run build:app",
+    "start": "npm run start:back",
+    "ng": "ng",
     "build:app": "ng build",
     "start:app": "ng serve",
     "watch:app": "ng build --watch --configuration development",
