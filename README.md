@@ -1,10 +1,19 @@
-# ToDoList
+# ToDoList - training project
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.0.
 
-## Development server
+Front end - Angular
+Backend - Node, MongoDB
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## NOTES
+
+- branch autodeploy for automatic deploy
+
+- Run `npm start` for a backend production server. Navigate to `http://localhost:3000/`.
+
+- Run `npm run start:back:dev` for a frontend development server. Navigate to `http://localhost:3000/`. The app will automatically reload if you change any of the source files.
+
+- Run `npm run start:app` for a frontend development server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
